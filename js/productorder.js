@@ -21,8 +21,7 @@ async function handleFormSubmit(event) {
     try {
         const responseData = await postFormDataAsJson(urlPostProductOrder, jsonToPost);
         console.log(responseData)
-        //her kan man indsæt nyt product i tabellen
-        //actionFetchProducts()
+        actionFetchProductOrders()
     } catch (error) {
         alert(error.message);
         console.error(error);
@@ -59,9 +58,32 @@ async function postFormDataAsJson(url, jsonToSend) {
     return response.json();
 }
 
+//fyld tabel med productorders
+
+const tableProduct = document.getElementById('productorder-list')
+
+async function createProductTable(productOrder) {
+    //husk brug debugger, bare skrive debugger i javascript koden
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${productOrder.delivery.deliveryId}</td>
+      <td>${productOrder.product.productId}</td>
+      <td>${productOrder.product.name}</td>
+      <td>${productOrder.quantity}</td>
+    `;
+    tableProduct.appendChild(row);
+}
+
+let lstProductOrders = []
+async function actionFetchProductOrders() {
+    lstProductOrders = await fetchAny(urlGetProductOrders);
+    tableProduct.innerHTML = '';
+    lstProductOrders.forEach(createProductTable)
+}
 
 /////  handle ddProducts
 const ddProducts = document.getElementById('ddProducts')
+let lstProducts = []
 
 async function actionFetchProducts() {
     lstProducts = await fetchAny(urlGetProducts);
@@ -74,7 +96,7 @@ function fillProductsDropDown(product) {
     const el = document.createElement("option")
     el.textContent = product.name
     el.value = product.productId
-    el.region = product
+    //el.value = product  , sådan her kan man også skrive, så får man hele produkt object sat ind i sin productorder
     ddProducts.appendChild(el)
 }
 
