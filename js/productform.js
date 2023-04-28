@@ -19,6 +19,7 @@ async function handleFormSubmit(event) {
         const responseData = await postFormDataAsJson(urlPostProduct, jsonToPost);
         console.log(responseData)
         //her kan man indsæt nyt product i tabellen
+        actionFetchProducts()
     } catch (error) {
         alert(error.message);
         console.error(error);
@@ -49,6 +50,27 @@ async function postFormDataAsJson(url, jsonToSend) {
     return response.json();
 }
 
+/// fill table with products
 
+const urlGetProducts = 'http://localhost:8080/products'
+const tableProduct = document.getElementById('product-list')
+
+async function createProductTable(product) {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${product.productId}</td>
+      <td>${product.name}</td>
+      <td>${product.price}</td>
+      <td>${product.weight}</td>
+    `;
+    tableProduct.appendChild(row);
+}
+
+let lstProducts = []
+async function actionFetchProducts() {
+    lstProducts = await fetchAny(urlGetProducts);
+    tableProduct.innerHTML = '';
+    lstProducts.forEach(createProductTable)
+}
 
 
