@@ -63,6 +63,16 @@ async function createProductTable(product) {
       <td>${product.price}</td>
       <td>${product.weight}</td>
     `;
+
+    cell = row.insertCell(4)
+    let pbUpdate = document.createElement("button")
+    pbUpdate.textContent = "Opdater"
+    pbUpdate.className = "buttonupdate"
+    pbUpdate.addEventListener('click', function () {
+        const prodid = product.productId
+        printProduct(prodid, product)
+    })
+    cell.appendChild(pbUpdate)
     tableProduct.appendChild(row);
 }
 
@@ -73,4 +83,8 @@ async function actionFetchProducts() {
     lstProducts.forEach(createProductTable)
 }
 
+function printProduct(prodid, product) {
+    console.log(prodid)
+    console.log(product)
+}
 

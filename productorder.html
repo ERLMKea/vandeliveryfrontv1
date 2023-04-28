@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Creator</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<h1>ProductOrder Creator</h1>
+<form id="productorder-form">
+
+  <label for="delivery">Delivery:</label>
+  <input type="text" id="delivery" name="delivery"><br>
+
+  <label for="product">Product:</label>
+  <select id="ddProducts" name="product"></select>
+
+  <label for="quantity">Quantiy:</label>
+  <input type="text" id="quantity" name="quantity"><br>
+
+  <button type="submit" id="submit-btn">Create Product</button>
+</form>
+
+<h1>Product orders</h1>
+<table>
+  <thead>
+  <tr>
+    <th>delID</th>
+    <th>prodID</th>
+    <th>Name</th>
+    <th>Quantiy</th>
+  </tr>
+  </thead>
+  <tbody id="productorder-list">
+  <!-- Product Order items will be dynamically added here -->
+  </tbody>
+</table>
+
+<script src="js/fetchany.js"></script>
+<script src="js/productorder.js"></script>
+</body>
+</html>
